@@ -1,17 +1,17 @@
 
-// //
-// function userImageClick() {
-//   console.log('event.target: ', event.target);
-// }
-//
-//
-//
-// //loop to track clicks
-// for (var i = 0; i < changImage.length; i++) {
-//   changImage[i].addEventListener('click', userImageClick);
-// }
+function displayImageclicked() {
+  console.log('event.target: ', event.target);
+}
 
-var imageObjectArray = [];
+var storeImageOne = document.getElementsByClassName('ranImage');
+//loop to track clicks
+for (var i = 0; i < storeImageOne.length; i++) {
+  storeImageOne[i].addEventListener('click', displayImageclicked);
+}
+
+function countClick() {
+
+}
 
 function ImageObject(name, filepath) {
   this.name, name;
@@ -21,31 +21,36 @@ function ImageObject(name, filepath) {
 
 }
 
-imageObjectArray.push(new ImageObject('bag', 'assets/bag.jpg'));
-imageObjectArray.push(new ImageObject('banana','assets/banana.jpg'));
-imageObjectArray.push(new ImageObject('bathroom','assets/bathroom.jpg'));
-imageObjectArray.push(new ImageObject('boots','assets/boots.jpg'));
-imageObjectArray.push(new ImageObject('breakfast','assets/breakfast.jpg'));
-imageObjectArray.push(new ImageObject('bubblegum','assets/bubblegum.jpg'));
-imageObjectArray.push(new ImageObject('chair','assets/chair.jpg'));
-imageObjectArray.push(new ImageObject('cthulhu','assets/cthulhu.jpg'));
-imageObjectArray.push(new ImageObject('dog-duck','assets/dog-duck.jpg'));
-imageObjectArray.push(new ImageObject('dragon','assets/dragon.jpg'));
-imageObjectArray.push(new ImageObject('pen','assets/pen.jpg'));
-imageObjectArray.push(new ImageObject('pet-sweep','assets/pet-sweep.jpg'));
-imageObjectArray.push(new ImageObject('scissors','assets/cissors.jpg'));
-imageObjectArray.push(new ImageObject('shark','assets/hark.jpg'));
-imageObjectArray.push(new ImageObject('sweep','assets/sweep.png'));
-imageObjectArray.push(new ImageObject('tauntaun','assets/tauntaun.jpg'));
-imageObjectArray.push(new ImageObject('unicorn','assets/unicorn.jpg'));
-imageObjectArray.push(new ImageObject('usb','assets/usb.jpg'));
-imageObjectArray.push(new ImageObject('water-can','assets/water-can.jpg'));
-imageObjectArray.push(new ImageObject('wine-glass','assets/wine-glass.jpg'));
+var imageObjectArray = [];
+imageObjectArray.push(bag = new ImageObject('bag', 'img/bag.jpg'));
+imageObjectArray.push(banana = new ImageObject('banana','img/banana.jpg'));
+imageObjectArray.push(bathroom = new ImageObject('bathroom','img/bathroom.jpg'));
+imageObjectArray.push(boots = new ImageObject('boots','img/boots.jpg'));
+imageObjectArray.push(breakfast = new ImageObject('breakfast','img/breakfast.jpg'));
+imageObjectArray.push(bubblegum = new ImageObject('bubblegum','img/bubblegum.jpg'));
+imageObjectArray.push(charir = new ImageObject('chair','img/chair.jpg'));
+imageObjectArray.push(cthulhu = new ImageObject('cthulhu','img/cthulhu.jpg'));
+imageObjectArray.push(dogDuck = new ImageObject('dog-duck','img/dog-duck.jpg'));
+imageObjectArray.push(dragon = new ImageObject('dragon','img/dragon.jpg'));
+imageObjectArray.push(pen = new ImageObject('pen','img/pen.jpg'));
+imageObjectArray.push(petSweep = new ImageObject('pet-sweep','img/pet-sweep.jpg'));
+imageObjectArray.push(scissors = new ImageObject('scissors','img/cissors.jpg'));
+imageObjectArray.push(shark = new ImageObject('shark','img/hark.jpg'));
+imageObjectArray.push(sweep = new ImageObject('sweep','img/sweep.png'));
+imageObjectArray.push(tauntaun = new ImageObject('tauntaun','img/tauntaun.jpg'));
+imageObjectArray.push(unicorn = new ImageObject('unicorn','img/unicorn.jpg'));
+imageObjectArray.push(usb = new ImageObject('usb','img/usb.jpg'));
+imageObjectArray.push(waterCan = new ImageObject('water-can','img/water-can.jpg'));
+imageObjectArray.push(wineGlass = new ImageObject('wine-glass','img/wine-glass.jpg'));
 
-var storeImageOne;
-storeImageOne = document.getElementsByClassName('ranImage');
 
 for (var i = 0; i < imageObjectArray.length; i++) {
-  var randomizer =  Math.floor(Math.random() * imageObjectArray.length);
+  var randomizer =  Math.floor(Math.random() * imageObjectArray.length - 1);
+  console.log(imageObjectArray);
   storeImageOne[i].setAttribute('src', imageObjectArray[randomizer].filepath);
 }
+
+
+// function getRandomIntInclusive(min, max) {
+//   return Math.floor(Math.random() * (max - min + 1)) + min;
+// }
