@@ -74,10 +74,12 @@ function displayImageclicked(event) {
       imageObjectArray[i].totalClicks();
       console.log('You clicked', event.target.id);
       console.log('total time image was clicked', imageObjectArray[i].clicks);
-      setTimeout(generateRandom, 200);
+
     }
 
     if (globalTotalClicks === 5) {
+      numberTimeClick();
+      numberTimeShow();
 
       console.log('if statement', globalTotalClicks);
 
@@ -97,35 +99,33 @@ function displayImageclicked(event) {
       userYes.setAttribute('id', userYes);
       userYes.textContent = 'yes';
       userYes.appendChild(formField);
+      userYes.addEventListener('click', userKeepPlaying);
 
       var userNo = document.createElement('button');
       userNo.setAttribute('id', userNo);
       userNo.textContent = 'no';
       userNo.appendChild(formField);
+      userNo.addEventListener('click', userNotPlaying);
 
       var userQuestion = document.getElementById('imageSpot');
       userQuestion.appendChild(userForm);
+
     }
   }
-
+  setTimeout(generateRandom, 200);
 }
 
 // setTimeout(generateRandom, 200);
 
 function userKeepPlaying(event) {
-  if (event.target.id === userYes) {
-    //show 10 more questions
-  }
+
+    //show 10 more questions//
+
 }
 
 function userNotPlaying(event) {
-  if (event.target.id === userNo) {
-    //show chart//
-  }
-
 
 }
-
 
 //loop to track clicks
 
@@ -133,14 +133,63 @@ for (var i = 0; i < storeImageOne.length; i++) {
   storeImageOne[i].addEventListener('click', displayImageclicked);
 }
 
-var continuePlaying = document.getElementById('imageSpot');
-continuePlaying.addEventListener('click.', userKeepPlaying);
-
-var goToChart = document.getElementById('imageSpot');
-goToChart.addEventListener('click', userNotPlaying);
-
-
 console.log('Total clicked: ' + globalTotalClicks);
+
+var numberTimeShowArray = [];
+var numberTimeClickArray = [];
+var percentArray = [];
+
+function numberTimeShow(){
+  for (var i = 0; i < imageObjectArray.length; i++) {
+  numberTimeShowArray.push(imageObjectArray[i].show);
+  }
+}
+
+function numberTimeClick(){
+  for (var i = 0; i < imageObjectArray.length; i++) {
+  numberTimeClickArray.push(imageObjectArray[i].clicks);
+}
+
+function percentArray(){
+for (var i = 0; i < imageObjectArray.length; i++) {
+  percentArray.push(imageObjectArray[i].clicks / imageObjectArray[i].show);
+}
+
+}
+// var myBarChart = new Chart(context).Bar(data);
+// var data = {
+//     labels: ["bag", "banana", "bathroom", "boots", "breakfast", "bubblegum", "chair", "cthulhu", "dogDuck", "dragon", "pen", "petSweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "waterCan", "wineGlass"],
+//     datasets: [
+//         {
+//             label: "Number of times shown",
+//             fillColor: "rgba(220,220,220,0.5)",
+//             strokeColor: "rgba(220,220,220,0.8)",
+//             highlightFill: "rgba(220,220,220,0.75)",
+//             highlightStroke: "rgba(220,220,220,1)",
+//             data: make array of number of times shown
+//         },
+//         {
+//             label: "number of times image was clicked",
+//             fillColor: "rgba(151,187,205,0.5)",
+//             strokeColor: "rgba(151,187,205,0.8)",
+//             highlightFill: "rgba(151,187,205,0.75)",
+//             highlightStroke: "rgba(151,187,205,1)",
+//             data: make variable for number of clicks
+//         }
+{
+//             label: "percentage",
+//             fillColor: "rgba(151,187,205,0.5)",
+//             strokeColor: "rgba(151,187,205,0.8)",
+//             highlightFill: "rgba(151,187,205,0.75)",
+//             highlightStroke: "rgba(151,187,205,1)",
+//             data: make new percentage variable
+//         }
+//     ]
+// };
+
+
+
+
 
 // for (var j = 0; j < imageObjectArray.length; j++){
 //   console.log(imageObjectArray[j].name + ' has been displayed ' + imageObjectArray[j].show + ' and clicked ' + imageObjectArray[j].clicks + '.');
