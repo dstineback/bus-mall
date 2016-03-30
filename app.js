@@ -1,7 +1,7 @@
 var imageObjectArray = [];
 var bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, usb, waterCan, wineGlass;
 var storeImageOne;
-var totalClicks = 0;
+var globalTotalClicks = 0;
 
 function ImageObject(name, filePath) {
   this.name = name;
@@ -10,6 +10,7 @@ function ImageObject(name, filePath) {
   this.clicks = 0;
   this.coolId = '';
 }
+
 ImageObject.prototype.totalClicks = function () {
   this.clicks++;
 };
@@ -21,6 +22,7 @@ ImageObject.prototype.totalShow = function(){
 ImageObject.prototype.imgId = function(){
   this.coolId = this.name;
 };
+
 
 imageObjectArray.push(bag = new ImageObject('bag', 'img/bag.jpg'));
 imageObjectArray.push(banana = new ImageObject('banana','img/banana.jpg'));
@@ -62,24 +64,27 @@ function generateRandom() {
 }
 generateRandom();
 
-function displayImageclicked() {
-  totalClicks++;
-  console.log('total clicks', totalClicks);
+function displayImageclicked(event) {
+  globalTotalClicks++;
+  console.log('total clicks', globalTotalClicks);
   console.log('event.target: ', event.target);
+
   for (var i = 0; i < imageObjectArray.length; i++) {
-    if (event.target.src === imageObjectArray[i].coolId) {
+    if (event.target.id === imageObjectArray[i].coolId) {
       imageObjectArray[i].totalClicks();
+      console.log('You clicked', event.target.id);
+      console.log('total time image was clicked', imageObjectArray[i].clicks);
     }
-    generateRandom();
   }
+
+  setTimeout(generateRandom, 200);
 }
 
-for (var i = 0; i < imageObjectArray.length; i++){
-  console.log(imageObjectArray[i].name + ' has been displayed ' + imageObjectArray[i].show + ' and clicked ' + imageObjectArray[i].clicks + '.');
-}
+// for (var j = 0; j < imageObjectArray.length; j++){
+//   console.log(imageObjectArray[j].name + ' has been displayed ' + imageObjectArray[j].show + ' and clicked ' + imageObjectArray[j].clicks + '.');
+// }
 
-console.log('Total clicked: ' + totalClicks);
-
+console.log('Total clicked: ' + globalTotalClicks);
 
 //loop to track clicks
 
