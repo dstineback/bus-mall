@@ -1,6 +1,5 @@
 var imageObjectArray = [];
 var bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, usb, waterCan, wineGlass;
-var ranImg;
 var storeImageOne;
 var totalClicks = 0;
 
@@ -20,7 +19,7 @@ ImageObject.prototype.totalShow = function(){
 };
 
 ImageObject.prototype.imgId = function(){
-  this.coolId = this.name.split('').join('').toLowerCase();
+  this.coolId = this.name;
 };
 
 imageObjectArray.push(bag = new ImageObject('bag', 'img/bag.jpg'));
@@ -56,7 +55,6 @@ storeImageOne = document.getElementsByClassName('ranImg');
 function generateRandom() {
   for (var i = 0; i < storeImageOne.length; i++) {
     var randomizer =  Math.floor(Math.random() * imageObjectArray.length);
-    console.log(imageObjectArray);
     storeImageOne[i].setAttribute('src', imageObjectArray[randomizer].filePath);
     storeImageOne[i].setAttribute('id', imageObjectArray[randomizer].coolId);
     imageObjectArray[randomizer].totalShow();
@@ -66,11 +64,13 @@ generateRandom();
 
 function displayImageclicked() {
   totalClicks++;
+  console.log('total clicks', totalClicks);
   console.log('event.target: ', event.target);
   for (var i = 0; i < imageObjectArray.length; i++) {
     if (event.target.src === imageObjectArray[i].coolId) {
       imageObjectArray[i].totalClicks();
     }
+    generateRandom();
   }
 }
 
@@ -79,7 +79,7 @@ for (var i = 0; i < imageObjectArray.length; i++){
 }
 
 console.log('Total clicked: ' + totalClicks);
-generateRandom();
+
 
 //loop to track clicks
 
