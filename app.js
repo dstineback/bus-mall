@@ -1,50 +1,22 @@
 var imageObjectArray = [];
-// var bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, usb, waterCan, wineGlass;
-
+var bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, usb, waterCan, wineGlass;
+var ranImg;
+var storeImageOne;
 var totalClicks = 0;
 
-function displayImageclicked() {
-  totalClicks++;
-  console.log('event.target: ', event.target);
-
-  // if (displayImageclicked < 25) {
-  //   deleteImages(imgOne, imgTwo, imgThree);
-  //   displayThreeImages(imgOne, imgTwo, imgThree);
-  // } else {
-  //   deleteImages(imgOne, imgTwo, ImgThree);
-  //   alert('you clicked 25 times');
-  // }
-  var currentImgSrc = event.target.src;
-  for (var i = 0; i < imageObjectArray.length; i++) {
-    if (imageObjectsArray[i].coolId === currentImgSrc) {
-      imageObjectsArray[i].totalClicks();
-    }
-  }
-
-}
-
-var storeImageOne = document.getElementsByClassName('ranImg');
-//loop to track clicks
-
-for (var i = 0; i < storeImageOne.length; i++) {
-  storeImageOne[i].addEventListener('click', displayImageclicked);
-}
-
-function ImageObject(name, filepath) {
+function ImageObject(name, filePath) {
   this.name = name;
-  this.filepath = filepath;
+  this.filePath = filePath;
   this.show = 0;
   this.clicks = 0;
   this.coolId = '';
 }
 ImageObject.prototype.totalClicks = function () {
   this.clicks++;
-  console.log(totalClicks);
 };
 
 ImageObject.prototype.totalShow = function(){
   this.show++;
-  console.log('totalShow');
 };
 
 ImageObject.prototype.imgId = function(){
@@ -72,27 +44,45 @@ imageObjectArray.push(usb = new ImageObject('usb','img/usb.gif'));
 imageObjectArray.push(waterCan = new ImageObject('water-can','img/water-can.jpg'));
 imageObjectArray.push(wineGlass = new ImageObject('wine-glass','img/wine-glass.jpg'));
 
-function generateRandom() {
-  for (var i = 0; i < imageObjectArray.length; i++) {
-    var randomizer =  Math.floor(Math.random() * imageObjectArray.length);
-    console.log(imageObjectArray);
-    storeImageOne[i].setAttribute('src', imageObjectArray[randomizer].filepath);
-    storeImageOne[i].setAttribute('id', imageObjectArray[randomizer].coolId);
-    imageObjectArray[randomizer].totalShow.totalShow();
-  }
-}
-generateRandom();
-
 function replaceId(){
-  for (var i = 0; i < imageObjectsArray.length; i++){
-    imageObjectsArray[i].coolId();
+  for (var i = 0; i < imageObjectArray.length; i++){
+    imageObjectArray[i].imgId();
   }
 }
 replaceId();
 
-for (var i = 0; i < imageObjectsArray.length; i++){
-  console.log(imageObjectsArray[i].name + ' has been displayed ' + imageObjectsArray[i].show + ' and clicked ' + imageObjectsArray[i].clicks + '.');
+storeImageOne = document.getElementsByClassName('ranImg');
+
+function generateRandom() {
+  for (var i = 0; i < storeImageOne.length; i++) {
+    var randomizer =  Math.floor(Math.random() * imageObjectArray.length);
+    console.log(imageObjectArray);
+    storeImageOne[i].setAttribute('src', imageObjectArray[randomizer].filePath);
+    storeImageOne[i].setAttribute('id', imageObjectArray[randomizer].coolId);
+    imageObjectArray[randomizer].totalShow();
+  }
+}
+generateRandom();
+
+function displayImageclicked() {
+  totalClicks++;
+  console.log('event.target: ', event.target);
+  for (var i = 0; i < imageObjectArray.length; i++) {
+    if (event.target.src === imageObjectArray[i].coolId) {
+      imageObjectArray[i].totalClicks();
+    }
+  }
+}
+
+for (var i = 0; i < imageObjectArray.length; i++){
+  console.log(imageObjectArray[i].name + ' has been displayed ' + imageObjectArray[i].show + ' and clicked ' + imageObjectArray[i].clicks + '.');
 }
 
 console.log('Total clicked: ' + totalClicks);
 generateRandom();
+
+//loop to track clicks
+
+for (var i = 0; i < storeImageOne.length; i++) {
+  storeImageOne[i].addEventListener('click', displayImageclicked);
+}
