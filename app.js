@@ -1,4 +1,4 @@
-
+var imageObjectArray = [];
 var totalShow = 0;
 var totalClicks = 0;
 
@@ -34,16 +34,16 @@ function ImageObject(name, filepath) {
   this.clicks = 0;
 }
 ImageObject.prototype.totalClicks = function () {
-  this.clicks.event.target = totalClicks;
+  this.clicks++;
   console.log(totalClicks);
 };
 
 ImageObject.prototype.totalShow = function(){
-  this.show.event.target = totalShow;
-  console.log(totalShow);
+  this.show++;
+  console.log('totalShow');
 };
 
-var imageObjectArray = [];
+
 imageObjectArray.push(bag = new ImageObject('bag', 'img/bag.jpg'));
 imageObjectArray.push(banana = new ImageObject('banana','img/banana.jpg'));
 imageObjectArray.push(bathroom = new ImageObject('bathroom','img/bathroom.jpg'));
