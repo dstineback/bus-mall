@@ -74,20 +74,74 @@ function displayImageclicked(event) {
       imageObjectArray[i].totalClicks();
       console.log('You clicked', event.target.id);
       console.log('total time image was clicked', imageObjectArray[i].clicks);
+      setTimeout(generateRandom, 200);
+    }
+
+    if (globalTotalClicks === 5) {
+
+      console.log('if statement', globalTotalClicks);
+
+      var userForm = document.createElement('form');
+      userForm.setAttribute('id', userForm);
+
+      var formField = document.createElement('fieldset');
+      formField.setAttribute('id', formField);
+      formField.appendChild(userForm);
+
+      var formLeg = document.createElement('legend');
+      formLeg.setAttribute('id', formLeg);
+      formLeg.textContent = 'You have reached 25 questions. Do you want to see results or answer 10 more questions';
+      formLeg.appendChild(formField);
+
+      var userYes = document.createElement('button');
+      userYes.setAttribute('id', userYes);
+      userYes.textContent = 'yes';
+      userYes.appendChild(formField);
+
+      var userNo = document.createElement('button');
+      userNo.setAttribute('id', userNo);
+      userNo.textContent = 'no';
+      userNo.appendChild(formField);
+
+      var userQuestion = document.getElementById('imageSpot');
+      userQuestion.appendChild(userForm);
     }
   }
 
-  setTimeout(generateRandom, 200);
 }
 
-// for (var j = 0; j < imageObjectArray.length; j++){
-//   console.log(imageObjectArray[j].name + ' has been displayed ' + imageObjectArray[j].show + ' and clicked ' + imageObjectArray[j].clicks + '.');
-// }
+// setTimeout(generateRandom, 200);
 
-console.log('Total clicked: ' + globalTotalClicks);
+function userKeepPlaying(event) {
+  if (event.target.id === userYes) {
+    //show 10 more questions
+  }
+}
+
+function userNotPlaying(event) {
+  if (event.target.id === userNo) {
+    //show chart//
+  }
+
+
+}
+
 
 //loop to track clicks
 
 for (var i = 0; i < storeImageOne.length; i++) {
   storeImageOne[i].addEventListener('click', displayImageclicked);
 }
+
+var continuePlaying = document.getElementById('imageSpot');
+continuePlaying.addEventListener('click.', userKeepPlaying);
+
+var goToChart = document.getElementById('imageSpot');
+goToChart.addEventListener('click', userNotPlaying);
+
+
+console.log('Total clicked: ' + globalTotalClicks);
+
+// for (var j = 0; j < imageObjectArray.length; j++){
+//   console.log(imageObjectArray[j].name + ' has been displayed ' + imageObjectArray[j].show + ' and clicked ' + imageObjectArray[j].clicks + '.');
+// }
