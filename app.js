@@ -54,7 +54,6 @@ function replaceId(){
 }
 replaceId();
 
-
 function putIndividualClicksArray(){
   for (var i = 0; i < imageObjectArray.length; i++) {
     numberTimeClickArray.push(imageObjectArray[i].clicks);
@@ -120,6 +119,7 @@ function displayImageclicked(event) {
 
       var questionForm = document.createElement('form');
       questionForm.setAttribute('id', questionForm);
+
 
       var questionFieldset = document.createElement('fieldset');
       questionFieldset.setAttribute('id', questionFieldset);
@@ -190,8 +190,6 @@ for (var i = 0; i < storeImageOne.length; i++) {
 }
 
 
-var canvasEl = document.getElementById('placeChart');
-var context = canvasEl.getContext('2d');
 
 function showChart(){
   setPercentArray();
@@ -203,6 +201,8 @@ function showChart(){
   placeChart.setAttribute('width', '500');
   imageSpot.appendChild(placeChart);
 
+  var canvasEl = document.getElementById('placeChart');
+  var context = canvasEl.getContext('2d');
 
 
   var data = {
@@ -215,7 +215,7 @@ function showChart(){
         strokeColor: "rgba(220,220,220,0.8)",
         highlightFill: "rgba(220,220,220,0.75)",
         highlightStroke: "rgba(220,220,220,1)",
-        data: numberTimeShowArray,
+        data: numberTimeShowArray
       },
       {
         label: "number of times image was clicked",
@@ -223,7 +223,7 @@ function showChart(){
         strokeColor: "rgba(151,187,205,0.8)",
         highlightFill: "rgba(151,187,205,0.75)",
         highlightStroke: "rgba(151,187,205,1)",
-        data: numberTimeShowArray,
+        data: numberTimeClickArray
       },
       {
         label: "percentage",
@@ -231,14 +231,10 @@ function showChart(){
         strokeColor: "rgba(151,187,205,0.8)",
         highlightFill: "rgba(151,187,205,0.75)",
         highlightStroke: "rgba(151,187,205,1)",
-        data: percentArray,
+        data: percentArray
       }
     ]
   };
 
   var myBarChart = new Chart(context).Bar(data);
 }
-
-// for (var j = 0; j < imageObjectArray.length; j++){
-//   console.log(imageObjectArray[j].name + ' has been displayed ' + imageObjectArray[j].show + ' and clicked ' + imageObjectArray[j].clicks + '.');
-// }
