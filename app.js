@@ -71,7 +71,7 @@ function setPercentArray(){
     if (imageObjectArray[i].show === 0){
       percentArray.push(0);
     } else {
-      percentArray.push((imageObjectArray[i].clicks / imageObjectArray[i].show) * 100);
+      percentArray.push((numberTimeClickArray[i] / numberTimeShowArray[i]) * 100);
     }
   }
 }
@@ -155,7 +155,9 @@ function displayImageclicked(event) {
     // putIndividualClicksArray();
     showChart();
   }
+
 }
+
 
 setTimeout(generateRandom, 200);
 
@@ -196,10 +198,11 @@ function combination(list1, list2){
 
 function showChart(){
 
-  setPercentArray();
+
   snagDataFromStorage();
   saveDataToStorage();
   remEventListener();
+  setPercentArray();
 
 
 
@@ -223,7 +226,7 @@ function showChart(){
         strokeColor: "rgba(220,220,220,0.8)",
         highlightFill: "rgba(220,220,220,0.75)",
         highlightStroke: "rgba(220,220,220,1)",
-        data: numberTimeShowArray
+        data: numberTimeClickArray
       },
       {
         label: "number of times image was clicked",
@@ -231,7 +234,7 @@ function showChart(){
         strokeColor: "rgba(151,187,205,0.8)",
         highlightFill: "rgba(151,187,205,0.75)",
         highlightStroke: "rgba(151,187,205,1)",
-        data: numberTimeClickArray
+        data: numberTimeShowArray
       },
       {
         label: "percentage",
