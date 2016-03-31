@@ -6,7 +6,6 @@ var numberTimeShowArray = [];
 var numberTimeClickArray = [];
 var percentArray = [];
 
-
 function ImageObject(name, filePath) {
   this.name = name;
   this.filePath = filePath;
@@ -114,7 +113,7 @@ function displayImageclicked(event) {
   }
   console.log('total clicks: ' + globalTotalClicks);
 
-  if (globalTotalClicks === 5) {
+  if (globalTotalClicks === 10) {
     putIndividualShowArray();
     putIndividualClicksArray();
 
@@ -151,7 +150,7 @@ function displayImageclicked(event) {
 
   }
   setTimeout(generateRandom, 200);
-} if (globalTotalClicks === 10) {
+} if (globalTotalClicks === 15) {
   putIndividualShowArray();
   putIndividualClicksArray();
   showChart();
@@ -183,14 +182,26 @@ function userKeepPlaying(event){
   threeImgEventListener();
 }
 
-
 for (var i = 0; i < storeImageOne.length; i++) {
   storeImageOne[i].addEventListener('click', displayImageclicked);
 }
 
+function combination(list1, list2){
+  var combinationArray = [];
+  for (var i = 0; i < list1.length; i++) {
+    combinationArray.push(list1[i] + list2[i]);;
+  }
+  return combinationArray;
+}
+
 function showChart(){
-  setPercentArray();
   remEventListener();
+  setPercentArray();
+  snagDataFromStorage();
+  saveDataToStorage();
+
+
+
   var imageSpot = document.getElementById('imageSpot');
   var placeChart = document.createElement('canvas');
   placeChart.setAttribute('id', 'placeChart');
@@ -233,16 +244,21 @@ function showChart(){
   };
 
   var myBarChart = new Chart(context).Bar(data);
-}
 
-function saveDataToStorage() {
-  localStorage.setItem('clicksByUser', numberTimeClickArray);
-  localStorage.setItem('showByRandom', numberTimeShowArray);
-}
+  function saveDataToStorage() {
+    localStorage.setItem('snagData', JSON.stringify(numberTimeClickArray));
+    localStorage.setItem('showData', JSON.stringify(numberTimeShowArray));
+  }
 
-function snagDataFromStorage(){
-  var snagData = JSON.parse(localStorage.getItem('snagData'));
-  if (snagData) {
+  function snagDataFromStorage(){
+    var snagData = JSON.parse(localStorage.getItem('snagData'));
+    if (snagData) {
+      numberTimeClickArray = combination(numberTimeClickArray, snagData);
+    }
+    var showData = JSON.parse(localStorage.getItem('showData'));
 
+    if (showData) {
+      numberTimeShowArray = combination(numberTimeShowArray, snagData);
+    }
   }
 }
