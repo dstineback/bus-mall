@@ -6,6 +6,7 @@ var numberTimeShowArray = [];
 var numberTimeClickArray = [];
 var percentArray = [];
 
+
 function ImageObject(name, filePath) {
   this.name = name;
   this.filePath = filePath;
@@ -110,54 +111,53 @@ function displayImageclicked(event) {
       console.log('total time image was clicked', imageObjectArray[i].clicks);
 
     }
-
-    console.log('total clicks: ' + globalTotalClicks);
-
-    if (globalTotalClicks === 5) {
-      putIndividualShowArray();
-      putIndividualClicksArray();
-
-      var questionForm = document.createElement('form');
-      questionForm.setAttribute('id', questionForm);
-
-
-      var questionFieldset = document.createElement('fieldset');
-      questionFieldset.setAttribute('id', questionFieldset);
-      questionForm.appendChild(questionFieldset);
-
-      var questionLegend = document.createElement('legend');
-      questionLegend.setAttribute('id', questionLegend);
-      questionLegend.textContent = 'WooHoo! You made 25 picks. Would you like to make 10 more picks or see your results?';
-      questionFieldset.appendChild(questionLegend);
-
-      var keepGoingBut = document.createElement('button');
-      keepGoingBut.setAttribute('id', 'keepGoingBut');
-      keepGoingBut.setAttribute('type', 'button');
-      keepGoingBut.textContent = 'Keep Going';
-      questionFieldset.appendChild(keepGoingBut);
-      keepGoingBut.addEventListener('click', userKeepPlaying);
-
-      var butResults = document.createElement('button');
-      butResults.setAttribute('id', 'butResults');
-      butResults.setAttribute('type', 'button');
-      butResults.textContent = 'See Results';
-      questionFieldset.appendChild(butResults);
-      butResults.addEventListener('click', handleShowChart);
-
-      var imgOne = document.getElementsByClassName('storeImageOne')[0];
-      var parentDiv = imgOne.parentNode;
-      parentDiv.insertBefore(questionForm, imgOne);
-      remEventListener();
-
-    }
-    setTimeout(generateRandom, 200);
   }
-  if (globalTotalClicks === 10) {
+  console.log('total clicks: ' + globalTotalClicks);
+
+  if (globalTotalClicks === 5) {
     putIndividualShowArray();
     putIndividualClicksArray();
-    showChart();
+
+    var questionForm = document.createElement('form');
+    questionForm.setAttribute('id', questionForm);
+
+    var questionFieldset = document.createElement('fieldset');
+    questionFieldset.setAttribute('id', questionFieldset);
+    questionForm.appendChild(questionFieldset);
+
+    var questionLegend = document.createElement('legend');
+    questionLegend.setAttribute('id', questionLegend);
+    questionLegend.textContent = 'WooHoo! You made 25 picks. Would you like to make 10 more picks or see your results?';
+    questionFieldset.appendChild(questionLegend);
+
+    var keepGoingBut = document.createElement('button');
+    keepGoingBut.setAttribute('id', 'keepGoingBut');
+    keepGoingBut.setAttribute('type', 'button');
+    keepGoingBut.textContent = 'Keep Going';
+    questionFieldset.appendChild(keepGoingBut);
+    keepGoingBut.addEventListener('click', userKeepPlaying);
+
+    var butResults = document.createElement('button');
+    butResults.setAttribute('id', 'butResults');
+    butResults.setAttribute('type', 'button');
+    butResults.textContent = 'See Results';
+    questionFieldset.appendChild(butResults);
+    butResults.addEventListener('click', handleShowChart);
+
+    var imgOne = document.getElementsByClassName('ranImg')[0];
+    var parentDiv = imgOne.parentNode;
+    parentDiv.insertBefore(questionForm, imgOne);
+    remEventListener();
+
   }
+  setTimeout(generateRandom, 200);
+} if (globalTotalClicks === 10) {
+  putIndividualShowArray();
+  putIndividualClicksArray();
+  showChart();
+
 }
+
 
 setTimeout(generateRandom, 200);
 
@@ -183,27 +183,23 @@ function userKeepPlaying(event){
   threeImgEventListener();
 }
 
-//loop to track clicks
 
 for (var i = 0; i < storeImageOne.length; i++) {
   storeImageOne[i].addEventListener('click', displayImageclicked);
 }
-
-
 
 function showChart(){
   setPercentArray();
   remEventListener();
   var imageSpot = document.getElementById('imageSpot');
   var placeChart = document.createElement('canvas');
-  placeChart.setAttribute('id', placeChart);
-  placeChart.setAttribute('height', '900');
-  placeChart.setAttribute('width', '500');
+  placeChart.setAttribute('id', 'placeChart');
+  placeChart.setAttribute('height', '300');
+  placeChart.setAttribute('width', '900');
   imageSpot.appendChild(placeChart);
 
   var canvasEl = document.getElementById('placeChart');
   var context = canvasEl.getContext('2d');
-
 
   var data = {
     labels: ["bag", "banana", "bathroom", "boots", "breakfast", "bubblegum", "chair", "cthulhu", "dogDuck", "dragon", "pen", "petSweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "waterCan", "wineGlass"],
@@ -237,4 +233,16 @@ function showChart(){
   };
 
   var myBarChart = new Chart(context).Bar(data);
+}
+
+function saveDataToStorage() {
+  localStorage.setItem('clicksByUser', numberTimeClickArray);
+  localStorage.setItem('showByRandom', numberTimeShowArray);
+}
+
+function snagDataFromStorage(){
+  var snagData = JSON.parse(localStorage.getItem('snagData'));
+  if (snagData) {
+
+  }
 }
