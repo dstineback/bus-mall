@@ -114,28 +114,45 @@ function displayImageclicked(event) {
 
     console.log('total clicks: ' + globalTotalClicks);
 
-    if (globalTotalClicks === 25) {
+    if (globalTotalClicks === 5) {
       putIndividualShowArray();
       putIndividualClicksArray();
 
-      var userYes = document.createElement('button');
-      userYes.setAttribute('id', userYes);
-      userYes.textContent = 'yes';
-      userYes.appendChild(formField);
-      userYes.addEventListener('click', userKeepPlaying);
+      var questionForm = document.createElement('form');
+      questionForm.setAttribute('id', questionForm);
 
-      var userNo = document.createElement('button');
-      userNo.setAttribute('id', userNo);
-      userNo.textContent = 'no';
-      userNo.appendChild(formField);
-      userNo.addEventListener('click', userNotPlaying);
+      var questionFieldset = document.createElement('fieldset');
+      questionFieldset.setAttribute('id', questionFieldset);
+      questionForm.appendChild(questionFieldset);
 
-      var userQuestion = document.getElementById('imageSpot');
-      userQuestion.appendChild(userForm);
+      var questionLegend = document.createElement('legend');
+      questionLegend.setAttribute('id', questionLegend);
+      questionLegend.textContent = 'WooHoo! You made 25 picks. Would you like to make 10 more picks or see your results?';
+      questionFieldset.appendChild(questionLegend);
+
+      var keepGoingBut = document.createElement('button');
+      keepGoingBut.setAttribute('id', 'keepGoingBut');
+      keepGoingBut.setAttribute('type', 'button');
+      keepGoingBut.textContent = 'Keep Going';
+      questionFieldset.appendChild(keepGoingBut);
+      keepGoingBut.addEventListener('click', userKeepPlaying);
+
+      var butResults = document.createElement('button');
+      butResults.setAttribute('id', 'butResults');
+      butResults.setAttribute('type', 'button');
+      butResults.textContent = 'See Results';
+      questionFieldset.appendChild(butResults);
+      butResults.addEventListener('click', handleShowChart);
+
+      var imgOne = document.getElementsByClassName('storeImageOne')[0];
+      var parentDiv = imgOne.parentNode;
+      parentDiv.insertBefore(questionForm, imgOne);
+      remEventListener();
+
     }
     setTimeout(generateRandom, 200);
   }
-  if (globalTotalClicks === 35) {
+  if (globalTotalClicks === 10) {
     putIndividualShowArray();
     putIndividualClicksArray();
     showChart();
@@ -173,6 +190,8 @@ for (var i = 0; i < storeImageOne.length; i++) {
 }
 
 
+var canvasEl = document.getElementById('placeChart');
+var context = canvasEl.getContext('2d');
 
 function showChart(){
   setPercentArray();
@@ -182,15 +201,14 @@ function showChart(){
   placeChart.setAttribute('id', placeChart);
   placeChart.setAttribute('height', '900');
   placeChart.setAttribute('width', '500');
-  imagespot.appendChild(placeChart);
+  imageSpot.appendChild(placeChart);
 
-  var canvasEl = document.getElementById('placeChart');
-  var context = canvasEl.getContext('2d');
+
 
   var data = {
-  labels: ["bag", "banana", "bathroom", "boots", "breakfast", "bubblegum", "chair", "cthulhu", "dogDuck", "dragon", "pen",    "petSweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "waterCan", "wineGlass"],
+    labels: ["bag", "banana", "bathroom", "boots", "breakfast", "bubblegum", "chair", "cthulhu", "dogDuck", "dragon", "pen", "petSweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "waterCan", "wineGlass"],
 
-    datasets:[
+    datasets: [
       {
         label: "Number of times shown",
         fillColor: "rgba(220,220,220,0.5)",
@@ -220,7 +238,6 @@ function showChart(){
 
   var myBarChart = new Chart(context).Bar(data);
 }
-
 
 // for (var j = 0; j < imageObjectArray.length; j++){
 //   console.log(imageObjectArray[j].name + ' has been displayed ' + imageObjectArray[j].show + ' and clicked ' + imageObjectArray[j].clicks + '.');
