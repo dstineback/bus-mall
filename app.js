@@ -2,6 +2,9 @@ var imageObjectArray = [];
 var bag, banana, bathroom, boots, breakfast, bubblegum, chair, cthulhu, dogDuck, dragon, pen, petSweep, scissors, shark, sweep, tauntaun, unicorn, usb, waterCan, wineGlass;
 var storeImageOne;
 var globalTotalClicks = 0;
+var numberTimeShowArray = [];
+var numberTimeClickArray = [];
+var percentArray = [];
 
 function ImageObject(name, filePath) {
   this.name = name;
@@ -22,7 +25,6 @@ ImageObject.prototype.totalShow = function(){
 ImageObject.prototype.imgId = function(){
   this.coolId = this.name;
 };
-
 
 imageObjectArray.push(bag = new ImageObject('bag', 'img/bag.jpg'));
 imageObjectArray.push(banana = new ImageObject('banana','img/banana.jpg'));
@@ -52,14 +54,47 @@ function replaceId(){
 }
 replaceId();
 
+
+function putIndividualClicksArray(){
+  for (var i = 0; i < imageObjectArray.length; i++) {
+    numberTimeClickArray.push(imageObjectArray[i].clicks);
+  }
+}
+
+function putIndividualShowArray(){
+  for (var i = 0; i < imageObjectArray.length; i++) {
+    numberTimeShowArray.push(imageObjectArray[i].show);
+  }
+}
+
+function setPercentArray(){
+  for (var i = 0; i < imageObjectArray.length; i++) {
+    if (imageObjectArray[i].show === 0){
+      percentArray.push(0);
+    } else {
+      percentArray.push((imageObjectArray[i].clicks / imageObjectArray[i].show) * 100);
+    }
+  }
+}
+
 storeImageOne = document.getElementsByClassName('ranImg');
 
 function generateRandom() {
+  var randomImgOne = Math.floor(Math.random() * imageObjectArray.length);
+  var randomImgTwo = randomImgOne;
+  while (randomImgTwo === randomImgOne) {
+    randomImgTwo = Math.floor(Math.random() * imageObjectArray.length);
+  }
+  var randomImgThree = randomImgTwo;
+  while (randomImgThree === randomImgTwo || randomImgThree === randomImgOne) {
+    randomImgThree = Math.floor(Math.random() * imageObjectArray.length);
+  }
+  var randomImgOfThreeArray = [randomImgOne, randomImgTwo, randomImgThree];
+
   for (var i = 0; i < storeImageOne.length; i++) {
-    var randomizer =  Math.floor(Math.random() * imageObjectArray.length);
-    storeImageOne[i].setAttribute('src', imageObjectArray[randomizer].filePath);
-    storeImageOne[i].setAttribute('id', imageObjectArray[randomizer].coolId);
-    imageObjectArray[randomizer].totalShow();
+    storeImageOne[i].setAttribute('src', imageObjectArray[randomImgOfThreeArray[i]].filePath);
+    storeImageOne[i].setAttribute('id', imageObjectArray[randomImgOfThreeArray[i]].coolId);
+    imageObjectArray[randomImgOfThreeArray[i]].totalShow();
   }
 }
 generateRandom();
@@ -77,23 +112,11 @@ function displayImageclicked(event) {
 
     }
 
-    if (globalTotalClicks === 5) {
-      numberTimeClick();
-      numberTimeShow();
+    console.log('total clicks: ' + globalTotalClicks);
 
-      console.log('if statement', globalTotalClicks);
-
-      var userForm = document.createElement('form');
-      userForm.setAttribute('id', userForm);
-
-      var formField = document.createElement('fieldset');
-      formField.setAttribute('id', formField);
-      formField.appendChild(userForm);
-
-      var formLeg = document.createElement('legend');
-      formLeg.setAttribute('id', formLeg);
-      formLeg.textContent = 'You have reached 25 questions. Do you want to see results or answer 10 more questions';
-      formLeg.appendChild(formField);
+    if (globalTotalClicks === 25) {
+      putIndividualShowArray();
+      putIndividualClicksArray();
 
       var userYes = document.createElement('button');
       userYes.setAttribute('id', userYes);
@@ -109,22 +132,38 @@ function displayImageclicked(event) {
 
       var userQuestion = document.getElementById('imageSpot');
       userQuestion.appendChild(userForm);
-
     }
+    setTimeout(generateRandom, 200);
   }
-  setTimeout(generateRandom, 200);
+  if (globalTotalClicks === 35) {
+    putIndividualShowArray();
+    putIndividualClicksArray();
+    showChart();
+  }
 }
 
-// setTimeout(generateRandom, 200);
+setTimeout(generateRandom, 200);
 
-function userKeepPlaying(event) {
-
-    //show 10 more questions//
+function threeImgEventListener(event) {
+  for (var i = 0; i < storeImageOne.length; i++) {
+    storeImageOne[i].addEventListener('click', displayImageclicked);
+  }
 
 }
+threeImgEventListener();
 
-function userNotPlaying(event) {
+function handleShowChart(event) {
+  showChart();
+}
 
+function remEventListener(){
+  for (var i = 0; i < storeImageOne.length; i++) {
+    storeImageOne[i].removeEventListener('click', displayImageclicked);
+  }
+}
+
+function userKeepPlaying(event){
+  threeImgEventListener();
 }
 
 //loop to track clicks
@@ -133,62 +172,54 @@ for (var i = 0; i < storeImageOne.length; i++) {
   storeImageOne[i].addEventListener('click', displayImageclicked);
 }
 
-console.log('Total clicked: ' + globalTotalClicks);
 
-var numberTimeShowArray = [];
-var numberTimeClickArray = [];
-var percentArray = [];
 
-function numberTimeShow(){
-  for (var i = 0; i < imageObjectArray.length; i++) {
-  numberTimeShowArray.push(imageObjectArray[i].show);
-  }
+function showChart(){
+  setPercentArray();
+  remEventListener();
+  var imageSpot = document.getElementById('imageSpot');
+  var placeChart = document.createElement('canvas');
+  placeChart.setAttribute('id', placeChart);
+  placeChart.setAttribute('height', '900');
+  placeChart.setAttribute('width', '500');
+  imagespot.appendChild(placeChart);
+
+  var canvasEl = document.getElementById('placeChart');
+  var context = canvasEl.getContext('2d');
+
+  var data = {
+  labels: ["bag", "banana", "bathroom", "boots", "breakfast", "bubblegum", "chair", "cthulhu", "dogDuck", "dragon", "pen",    "petSweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "waterCan", "wineGlass"],
+
+    datasets:[
+      {
+        label: "Number of times shown",
+        fillColor: "rgba(220,220,220,0.5)",
+        strokeColor: "rgba(220,220,220,0.8)",
+        highlightFill: "rgba(220,220,220,0.75)",
+        highlightStroke: "rgba(220,220,220,1)",
+        data: numberTimeShowArray,
+      },
+      {
+        label: "number of times image was clicked",
+        fillColor: "rgba(151,187,205,0.5)",
+        strokeColor: "rgba(151,187,205,0.8)",
+        highlightFill: "rgba(151,187,205,0.75)",
+        highlightStroke: "rgba(151,187,205,1)",
+        data: numberTimeShowArray,
+      },
+      {
+        label: "percentage",
+        fillColor: "rgba(151,187,205,0.5)",
+        strokeColor: "rgba(151,187,205,0.8)",
+        highlightFill: "rgba(151,187,205,0.75)",
+        highlightStroke: "rgba(151,187,205,1)",
+        data: percentArray,
+      }
+    ]
+  };
+
+  var myBarChart = new Chart(context).Bar(data);
 }
-
-function numberTimeClick(){
-  for (var i = 0; i < imageObjectArray.length; i++) {
-  numberTimeClickArray.push(imageObjectArray[i].clicks);
-}
-
-function percentArray(){
-for (var i = 0; i < imageObjectArray.length; i++) {
-  percentArray.push(imageObjectArray[i].clicks / imageObjectArray[i].show);
-}
-
-}
-// var myBarChart = new Chart(context).Bar(data);
-// var data = {
-//     labels: ["bag", "banana", "bathroom", "boots", "breakfast", "bubblegum", "chair", "cthulhu", "dogDuck", "dragon", "pen", "petSweep", "scissors", "shark", "sweep", "tauntaun", "unicorn", "usb", "waterCan", "wineGlass"],
-//     datasets: [
-//         {
-//             label: "Number of times shown",
-//             fillColor: "rgba(220,220,220,0.5)",
-//             strokeColor: "rgba(220,220,220,0.8)",
-//             highlightFill: "rgba(220,220,220,0.75)",
-//             highlightStroke: "rgba(220,220,220,1)",
-//             data: make array of number of times shown
-//         },
-//         {
-//             label: "number of times image was clicked",
-//             fillColor: "rgba(151,187,205,0.5)",
-//             strokeColor: "rgba(151,187,205,0.8)",
-//             highlightFill: "rgba(151,187,205,0.75)",
-//             highlightStroke: "rgba(151,187,205,1)",
-//             data: make variable for number of clicks
-//         }
-{
-//             label: "percentage",
-//             fillColor: "rgba(151,187,205,0.5)",
-//             strokeColor: "rgba(151,187,205,0.8)",
-//             highlightFill: "rgba(151,187,205,0.75)",
-//             highlightStroke: "rgba(151,187,205,1)",
-//             data: make new percentage variable
-//         }
-//     ]
-// };
-
-
-
 
 
 // for (var j = 0; j < imageObjectArray.length; j++){
