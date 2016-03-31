@@ -113,7 +113,7 @@ function displayImageclicked(event) {
   }
   console.log('total clicks: ' + globalTotalClicks);
 
-  if (globalTotalClicks === 10) {
+  if (globalTotalClicks === 25) {
     putIndividualShowArray();
     putIndividualClicksArray();
 
@@ -150,13 +150,12 @@ function displayImageclicked(event) {
 
   }
   setTimeout(generateRandom, 200);
-} if (globalTotalClicks === 15) {
-  putIndividualShowArray();
-  putIndividualClicksArray();
-  showChart();
-
+  if (globalTotalClicks === 35) {
+    // putIndividualShowArray();
+    // putIndividualClicksArray();
+    showChart();
+  }
 }
-
 
 setTimeout(generateRandom, 200);
 
@@ -179,6 +178,7 @@ function remEventListener(){
 }
 
 function userKeepPlaying(event){
+  if (globalTotalClicks < 35);
   threeImgEventListener();
 }
 
@@ -195,10 +195,11 @@ function combination(list1, list2){
 }
 
 function showChart(){
-  remEventListener();
+
   setPercentArray();
   snagDataFromStorage();
   saveDataToStorage();
+  remEventListener();
 
 
 
