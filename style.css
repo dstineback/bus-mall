@@ -1,16 +1,68 @@
-h1 {
-  text-align: center;
-  text-shadow: 2px, 2px, 2px;
+body{
+  background-color: #FBF9FF;
 
+}
+
+div{
+  width: auto;;
+
+}
+header{
+  text-align: center;
+  text-shadow: 3px, 3px, 5px, blue;
+  font-size: 30px;
+  color: white;
+
+}
+
+form{
+  text-align: center;
+  align-content: center;
+  width: auto;;
+
+}
+
+fieldset{
+  width: auto;;
+  height: 75px;
+  align-self: center;
+}
+
+legend{
+  font-size: 24px;
+  text-align: center;
+  width: auto;;
 }
 
 button{
+  display: inline-block;
+  justify-content: space-between;
   height: 50px;
   width: 150px;
   font-size: 18px;
-  border-radius: 15px;
+  border-radius: 25px;
+  text-align: center;
+  background-color: #354C4A;
+  color: white;
+
 }
 
+button:hover{
+  transform: scale(1.15);
+}
+
+
+
+#keepGoingBut{
+margin-right: 10px;
+
+}
+#butResults{
+  margin-left: 10px;
+}
+#questionForm{
+  align-content: center;
+}
 
 .contain {
   display: flex;
@@ -22,7 +74,7 @@ button{
   width: 250px;
   height: 250px;
   transition: all 1s;
-  border-radius: 100%;
+  border-radius: 25px;
 }
 
 .ranImg:hover {
