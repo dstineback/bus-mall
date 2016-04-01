@@ -113,7 +113,7 @@ function displayImageclicked(event) {
   }
   console.log('total clicks: ' + globalTotalClicks);
 
-  if (globalTotalClicks === 25) {
+  if (globalTotalClicks === 2) {
     putIndividualShowArray();
     putIndividualClicksArray();
 
@@ -143,14 +143,14 @@ function displayImageclicked(event) {
     questionFieldset.appendChild(butResults);
     butResults.addEventListener('click', handleShowChart);
 
-    var imgOne = document.getElementsByClassName('ranImg')[0];
+    var imgOne = document.getElementsByClassName('form')[0];
     var parentDiv = imgOne.parentNode;
     parentDiv.insertBefore(questionForm, imgOne);
     remEventListener();
 
   }
   setTimeout(generateRandom, 200);
-  if (globalTotalClicks === 35) {
+  if (globalTotalClicks === 5) {
     // putIndividualShowArray();
     // putIndividualClicksArray();
     showChart();
@@ -204,14 +204,12 @@ function showChart(){
   remEventListener();
   setPercentArray();
 
-
-
-  var imageSpot = document.getElementById('imageSpot');
+  var results = document.getElementById('results');
   var placeChart = document.createElement('canvas');
   placeChart.setAttribute('id', 'placeChart');
   placeChart.setAttribute('height', '300');
   placeChart.setAttribute('width', '900');
-  imageSpot.appendChild(placeChart);
+  results.appendChild(placeChart);
 
   var canvasEl = document.getElementById('placeChart');
   var context = canvasEl.getContext('2d');

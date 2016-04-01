@@ -1,6 +1,40 @@
+h1 {
+  text-align: center;
+  text-shadow: 2px, 2px, 2px;
+
+}
+
+button{
+  height: 50px;
+  width: 150px;
+  font-size: 18px;
+  border-radius: 15px;
+}
 
 
+.contain {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  transition: all 1s;
+}
 .ranImg {
-  width: 200px;
-  height: 200px;
+  width: 250px;
+  height: 250px;
+  transition: all 1s;
+  border-radius: 100%;
+}
+
+.ranImg:hover {
+transform: scale(1.25);
+
+}
+
+.chartArea{
+  margin-left: 200px;
+  margin-top: 75px;
+}
+
+.form{
+  margin-bottom: 100px;
 }
