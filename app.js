@@ -6,6 +6,7 @@ var numberTimeShowArray = [];
 var numberTimeClickArray = [];
 var percentArray = [];
 
+//object constructor
 function ImageObject(name, filePath) {
   this.name = name;
   this.filePath = filePath;
@@ -76,6 +77,7 @@ function setPercentArray(){
   }
 }
 
+//math function
 storeImageOne = document.getElementsByClassName('ranImg');
 
 function generateRandom() {
@@ -98,6 +100,7 @@ function generateRandom() {
 }
 generateRandom();
 
+//event listener
 function displayImageclicked(event) {
   globalTotalClicks++;
   console.log('total clicks', globalTotalClicks);
@@ -113,7 +116,7 @@ function displayImageclicked(event) {
   }
   console.log('total clicks: ' + globalTotalClicks);
 
-  if (globalTotalClicks === 2) {
+  if (globalTotalClicks === 25) {
     putIndividualShowArray();
     putIndividualClicksArray();
 
@@ -150,14 +153,12 @@ function displayImageclicked(event) {
 
   }
   setTimeout(generateRandom, 200);
-  if (globalTotalClicks === 5) {
+  if (globalTotalClicks === 35) {
     // putIndividualShowArray();
     // putIndividualClicksArray();
     showChart();
   }
-
 }
-
 
 setTimeout(generateRandom, 200);
 
@@ -196,8 +197,8 @@ function combination(list1, list2){
   return combinationArray;
 }
 
+//chart function
 function showChart(){
-
 
   snagDataFromStorage();
   saveDataToStorage();
@@ -220,26 +221,26 @@ function showChart(){
     datasets: [
       {
         label: "Number of times shown",
-        fillColor: "rgba(220,220,220,0.5)",
-        strokeColor: "rgba(220,220,220,0.8)",
-        highlightFill: "rgba(220,220,220,0.75)",
-        highlightStroke: "rgba(220,220,220,1)",
+        fillColor: "rgba(255,252,2,0.5)",
+        strokeColor: "rgba(255,242,2,0.8)",
+        highlightFill: "rgba(255,242,2,0.75)",
+        highlightStroke: "rgba(255,242,2,1)",
         data: numberTimeClickArray
       },
       {
         label: "number of times image was clicked",
-        fillColor: "rgba(151,187,205,0.5)",
-        strokeColor: "rgba(151,187,205,0.8)",
-        highlightFill: "rgba(151,187,205,0.75)",
-        highlightStroke: "rgba(151,187,205,1)",
+        fillColor: "rgba(14,230,50,0.5)",
+        strokeColor: "rgba(14,230,50,0.8)",
+        highlightFill: "rgba(14,230,50,0.75)",
+        highlightStroke: "rgba(14,230,50,1)",
         data: numberTimeShowArray
       },
       {
         label: "percentage",
-        fillColor: "rgba(151,187,205,0.5)",
-        strokeColor: "rgba(151,187,205,0.8)",
-        highlightFill: "rgba(151,187,205,0.75)",
-        highlightStroke: "rgba(151,187,205,1)",
+        fillColor: "rgba(255,33,96,0.5)",
+        strokeColor: "rgba(255,33,96,0.8)",
+        highlightFill: "rgba(255,33,96,0.75)",
+        highlightStroke: "rgba(255,33,96,1)",
         data: percentArray
       }
     ]
@@ -247,6 +248,7 @@ function showChart(){
 
   var myBarChart = new Chart(context).Bar(data);
 
+//Storage functions
   function saveDataToStorage() {
     localStorage.setItem('snagData', JSON.stringify(numberTimeClickArray));
     localStorage.setItem('showData', JSON.stringify(numberTimeShowArray));
