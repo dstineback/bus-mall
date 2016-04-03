@@ -5,6 +5,10 @@
 -Used DOM to replace ids and class.  
 
 #app  
+-used a object constructor to create images  
+-used DOM to create a form with 2 buttons  
+-recorded data and stored in chart for user to see  
+-used event listener for clicks and button pushes
 
 #chart  
 -used Chartjs bar graph
